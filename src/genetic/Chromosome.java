@@ -1,33 +1,16 @@
 package genetic;
 
+import java.util.List;
+import java.util.Vector;
+
 /**
- * Created by olivermd on 19/02/15.
+ * Created by oliver on 20/02/15.
  */
-abstract class Chromosome<T> {
+public interface Chromosome<T> {
+    public float getFitness();
+    public void setFitness(float fitness);
+    public Vector<T> getValue();
+    public void setValue(Vector<T> value);
 
-    private float fitness;
-
-    public Chromosome(float fitness) {
-        this.fitness = fitness;
-    }
-
-    /**
-     * Get the value of the chromosome
-     * @return <T>
-     */
-    public abstract T getValue();
-
-    /**
-     * Returns the fitness of the chromosome
-     * @return float
-     */
-    public abstract float getFitness();
-
-    public abstract Chromosome<T> crossover(Chromosome<T> partner);
-
-    protected void setFitness(float fitness) {
-        this.fitness = fitness;
-    }
-
-
+    public int getLength();
 }
