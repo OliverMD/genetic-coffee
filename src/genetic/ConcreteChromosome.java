@@ -1,6 +1,5 @@
 package genetic;
 
-import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
@@ -44,7 +43,8 @@ public class ConcreteChromosome<T> implements Chromosome<T> {
         this.data = value;
     }
 
-    public void mutate(float rate) {
+    @Override
+    public Chromosome<T> mutate(float rate) {
         if (this.random.nextFloat() < rate){
             //Mutate
             for (int i = 0; i < this.length; i++){
@@ -57,19 +57,23 @@ public class ConcreteChromosome<T> implements Chromosome<T> {
             }
         }
 
+        return this;
+
     }
 
-    public Chromosome<T> crossover(ConcreteChromosome<T> partner) {
+    @Override
+    @SuppressWarnings("unchecked")
+    public Chromosome<T> crossover(Chromosome<?> partner) {
         Vector<T> newData = new Vector<>();
         for (int i = 0; i < Math.min(this.length, partner.getLength()); i++){
             if (this.random.nextFloat() < 0.5f){
                 newData.add(this.data.get(i));
             } else {
-                newData.add(partner.data.get(i));
+                newData.add((T)partner.getValue().get(i));
             }
         }
 
-        return new ConcreteChromosome<T>(newData);
+        return new ConcreteChromosome<>(newData);
     }
 
     @Override
